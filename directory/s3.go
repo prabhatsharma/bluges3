@@ -11,10 +11,17 @@ import (
 
 	"github.com/aws/aws-sdk-go-v2/config"
 	"github.com/aws/aws-sdk-go-v2/service/s3"
+	"github.com/blugelabs/bluge"
 	"github.com/blugelabs/bluge/index"
 	segment "github.com/blugelabs/bluge_segment_api"
 	zerolog "github.com/rs/zerolog/log"
 )
+
+func GetS3Config() bluge.Config {
+	return bluge.DefaultConfigWithDirectory(func() index.Directory {
+		return NewS3Directory("zinc1", "index1")
+	})
+}
 
 type S3Directory struct {
 	Bucket string
